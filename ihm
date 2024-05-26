@@ -1,0 +1,37 @@
+import tkinter as tk
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+# Les données de température et d'humidité à afficher
+data = [
+    {"temperature": 25, "humidite": 60},
+    {"temperature": 27, "humidite": 55},
+    {"temperature": 23, "humidite": 70}
+]
+
+# Créer une instance de la classe Tk
+root = tk.Tk()
+
+# Ajouter un titre à la fenêtre
+root.title("Courbes de Température et d'Humidité")
+
+# Créer une figure pour afficher les courbes
+fig, ax = plt.subplots()
+temps = [i+1 for i in range(len(data))]
+temp_values = [entry["temperature"] for entry in data]
+hum_values = [entry["humidite"] for entry in data]
+
+# Afficher les courbes de température et d'humidité
+ax.plot(temps, temp_values, label='Température (°C)')
+ax.plot(temps, hum_values, label='Humidité (%)')
+ax.set_xlabel('Temps')
+ax.set_ylabel('Valeurs')
+ax.legend()
+
+# Afficher la figure dans la fenêtre Tkinter
+canvas = FigureCanvasTkAgg(fig, master=root)
+canvas.draw()
+canvas.get_tk_widget().pack()
+
+# Lancer la boucle principale de la fenêtre
+root.mainloop()
